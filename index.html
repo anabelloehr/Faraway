@@ -122,41 +122,40 @@
        Nach 2s gleiten sie auf und ab raus (1.4s Dauer).
     ─────────────────────────────────────────────────────── */
 
-    .cloud-intro-top {
+    .cloud-intro-left {
       position: fixed;
       z-index: 5;
       pointer-events: none;
-      width: 130vw;
-      left: -15vw;
-      top: -8vh;
-      animation: introLeaveTop 1.4s cubic-bezier(0.55, 0, 1, 0.45) forwards 2s;
+      width: 80vw;
+      left: -10vw;
+      top: 28%;
+      animation: introLeaveLeft 1.4s cubic-bezier(0.55, 0, 1, 0.45) forwards 2s;
     }
-
-    .cloud-intro-bottom {
+    
+    .cloud-intro-right {
       position: fixed;
       z-index: 5;
       pointer-events: none;
-      width: 130vw;
-      left: -15vw;
-      bottom: -8vh;
-      transform: scaleY(-1);
-      animation: introLeaveBottom 1.4s cubic-bezier(0.55, 0, 1, 0.45) forwards 2s;
+      width: 80vw;
+      left: 30vw;
+      top: 28%;
+      animation: introLeaveRight 1.4s cubic-bezier(0.55, 0, 1, 0.45) forwards 2s;
     }
-
-    .cloud-intro-top img,
-    .cloud-intro-bottom img {
+    
+    .cloud-intro-left img,
+    .cloud-intro-right img {
       width: 100%;
       display: block;
     }
-
-    @keyframes introLeaveTop {
-      from { transform: translateY(0);     opacity: 1; }
-      to   { transform: translateY(-115%); opacity: 0; }
+    
+    @keyframes introLeaveLeft {
+      from { transform: translateX(0);     opacity: 1; }
+      to   { transform: translateX(-130%); opacity: 0; }
     }
-
-    @keyframes introLeaveBottom {
-      from { transform: scaleY(-1) translateY(0);     opacity: 1; }
-      to   { transform: scaleY(-1) translateY(-115%); opacity: 0; }
+    
+    @keyframes introLeaveRight {
+      from { transform: translateX(0);    opacity: 1; }
+      to   { transform: translateX(130%); opacity: 0; }
     }
 
     /* ── DRIFTENDE WOLKE ───────────────────────────────────
@@ -216,13 +215,11 @@
     preload="auto"
   ></video>
 
-  <!-- Intro: obere Wolke -->
-  <div class="cloud-intro-top">
-    <img src="cloud.png" alt="" />
+  <div class="cloud-intro-left">
+  <img src="cloud.png" alt="" />
   </div>
-
-  <!-- Intro: untere Wolke (gespiegelt) -->
-  <div class="cloud-intro-bottom">
+  
+  <div class="cloud-intro-right">
     <img src="cloud.png" alt="" />
   </div>
 
