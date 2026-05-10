@@ -137,6 +137,32 @@
         letter-spacing: 0.28em;
       }
     }
+        .cloud {
+      position: fixed;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.75;
+      width: clamp(480px, 60vw, 900px);
+      top: 38%;
+      animation:
+        cloudDrift 55s linear infinite,
+        cloudFloat 9s ease-in-out infinite;
+    }
+    
+    .cloud img {
+      width: 100%;
+      display: block;
+    }
+    
+    @keyframes cloudDrift {
+      from { transform: translateX(110vw) translateY(0px); }
+      to   { transform: translateX(-110%) translateY(0px); }
+    }
+    
+    @keyframes cloudFloat {
+      0%, 100% { margin-top: 0px; }
+      50%       { margin-top: 22px; }
+    }
   </style>
 </head>
 <body>
@@ -153,6 +179,10 @@
   ></video>
 
   <div class="overlay"></div>
+  
+  <div class="cloud">
+  <img src="cloud.png" alt="" />
+  </div>
 
   <div class="page">
 
