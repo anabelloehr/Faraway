@@ -40,9 +40,6 @@
       pointer-events: none;
     }
 
-    /* ── Layered overlay: vignette + atmospheric darkness ── */
-  
-
     /* ── Page layout ─────────────────────────────────────── */
     .page {
       position: fixed;
@@ -67,8 +64,7 @@
       letter-spacing: 0.05em;
       color: #ff2f67;
       line-height: 1;
-      /* very faint glow to lift it off the video */
-      text-shadow: 0 2px 20px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5);    
+      text-shadow: 0 2px 20px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5);
     }
 
     .subtitle {
@@ -97,10 +93,9 @@
 
     .vimeo-ratio {
       position: relative;
-      padding-top: 56.25%; /* 16:9 */
+      padding-top: 56.25%;
       border-radius: 3px;
       overflow: hidden;
-      /* thin luminous border */
       box-shadow:
         0 0 0 1px rgba(240, 236, 227, 0.08),
         0 8px 60px rgba(4, 4, 15, 0.85),
@@ -118,56 +113,99 @@
 
     /* ── Animations ──────────────────────────────────────── */
     @keyframes riseIn {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Responsive: small screens ───────────────────────── */
-    @media (max-width: 480px) {
-      .title {
-        letter-spacing: 0.35em;
-      }
-      .subtitle {
-        letter-spacing: 0.28em;
-      }
-    }
-        .cloud {
+    /* ── INTRO WOLKEN ──────────────────────────────────────
+       Zwei große Wolken die den Screen bedecken.
+       Nach 2s gleiten sie auf und ab raus (1.4s Dauer).
+    ─────────────────────────────────────────────────────── */
+
+    .cloud-intro-top {
       position: fixed;
-      z-index: 3;
+      z-index: 5;
       pointer-events: none;
-      opacity: 0.75;
-      width: clamp(480px, 60vw, 900px);
-      top: 38%;
-      animation:
-        cloudDrift 55s linear infinite,
-        cloudFloat 9s ease-in-out infinite;
+      width: 130vw;
+      left: -15vw;
+      top: -8vh;
+      animation: introLeaveTop 1.4s cubic-bezier(0.55, 0, 1, 0.45) forwards 2s;
     }
-    
-    .cloud img {
+
+    .cloud-intro-bottom {
+      position: fixed;
+      z-index: 5;
+      pointer-events: none;
+      width: 130vw;
+      left: -15vw;
+      bottom: -8vh;
+      transform: scaleY(-1);
+      animation: introLeaveBottom 1.4s cubic-bezier(0.55, 0, 1, 0.45) forwards 2s;
+    }
+
+    .cloud-intro-top img,
+    .cloud-intro-bottom img {
       width: 100%;
       display: block;
     }
-    
-    @keyframes cloudDrift {
-      from { transform: translateX(110vw) translateY(0px); }
-      to   { transform: translateX(-110%) translateY(0px); }
+
+    @keyframes introLeaveTop {
+      from { transform: translateY(0);     opacity: 1; }
+      to   { transform: translateY(-115%); opacity: 0; }
     }
-    
+
+    @keyframes introLeaveBottom {
+      from { transform: scaleY(-1) translateY(0);     opacity: 1; }
+      to   { transform: scaleY(-1) translateY(-115%); opacity: 0; }
+    }
+
+    /* ── DRIFTENDE WOLKE ───────────────────────────────────
+       Erscheint nachdem Intro-Wolken weg sind.
+       Zieht in 30s von rechts nach links, endlos.
+    ─────────────────────────────────────────────────────── */
+
+    .cloud-drift {
+      position: fixed;
+      z-index: 3;
+      pointer-events: none;
+      width: clamp(400px, 55vw, 800px);
+      top: 42%;
+      opacity: 0;
+      animation:
+        cloudFadeIn  0.8s ease            forwards  3.6s,
+        cloudDrift   30s  linear          infinite  3.6s,
+        cloudFloat   9s   ease-in-out     infinite  3.6s;
+    }
+
+    .cloud-drift img {
+      width: 100%;
+      display: block;
+    }
+
+    @keyframes cloudFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 0.8; }
+    }
+
+    @keyframes cloudDrift {
+      from { transform: translateX(110vw); }
+      to   { transform: translateX(-110%); }
+    }
+
     @keyframes cloudFloat {
       0%, 100% { margin-top: 0px; }
       50%       { margin-top: 22px; }
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .title    { letter-spacing: 0.35em; }
+      .subtitle { letter-spacing: 0.28em; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── Background video (replace background.mp4 with your filename) ── -->
   <video
     class="bg-video"
     src="background.mp4"
@@ -178,27 +216,30 @@
     preload="auto"
   ></video>
 
-  <div class="overlay"></div>
-  
-  <div class="cloud">
-  <img src="cloud.png" alt="" />
+  <!-- Intro: obere Wolke -->
+  <div class="cloud-intro-top">
+    <img src="cloud.png" alt="" />
+  </div>
+
+  <!-- Intro: untere Wolke (gespiegelt) -->
+  <div class="cloud-intro-bottom">
+    <img src="cloud.png" alt="" />
+  </div>
+
+  <!-- Driftende Wolke -->
+  <div class="cloud-drift">
+    <img src="cloud.png" alt="" />
   </div>
 
   <div class="page">
 
-    <!-- ── Title ── -->
     <header class="header">
       <h1 class="title">Faraway</h1>
     </header>
 
-    <!-- ── Vimeo embed ── -->
     <main class="main">
       <div class="embed-shell">
         <div class="vimeo-ratio">
-          <!--
-            Ersetze DEINE_VIDEO_ID mit der echten Vimeo-Video-ID.
-            Beispiel: https://vimeo.com/123456789 → ID ist 123456789
-          -->
           <iframe
             src="https://player.vimeo.com/video/1190940907?color=f0ece3&title=0&byline=0&portrait=0&dnt=1"
             allow="autoplay; fullscreen; picture-in-picture"
