@@ -201,6 +201,24 @@
       .title    { letter-spacing: 0.35em; }
       .subtitle { letter-spacing: 0.28em; }
     }
+
+    .cloud-drift-2 {
+      position: fixed;
+      z-index: 3;
+      pointer-events: none;
+      width: 45vw;
+      top: 50%;
+      opacity: 0;
+      animation:
+        cloudFadeIn  0.8s ease            forwards  15s,
+        cloudDrift   30s  linear          infinite  15s,
+        cloudFloat   9s   ease-in-out     infinite  15s;
+    }
+    
+    .cloud-drift-2 img {
+      width: 100%;
+      display: block;
+    }  
   </style>
 </head>
 <body>
@@ -226,6 +244,9 @@
   <!-- Driftende Wolke -->
   <div class="cloud-drift">
     <img src="cloud.png" alt="" />
+  </div>
+  <div class="cloud-drift-2">
+  <img src="cloud2.png" alt="" />
   </div>
 
   <div class="page">
