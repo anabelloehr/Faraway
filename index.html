@@ -167,13 +167,13 @@
       position: fixed;
       z-index: 3;
       pointer-events: none;
-      width: clamp(400px, 55vw, 800px);
-      top: 42%;
+      width: clamp(400px, 75vw, 800px);
+      top: 22%;
       opacity: 0;
       animation:
-        cloudFadeIn  0.8s ease            forwards  3.6s,
-        cloudDrift   30s  linear          infinite  3.6s,
-        cloudFloat   9s   ease-in-out     infinite  3.6s;
+        cloudFadeIn  0.8s ease            forwards  1s,
+        cloudDrift   30s  linear          infinite  1s,
+        cloudFloat   9s   ease-in-out     infinite  1s;
     }
 
     .cloud-drift img {
@@ -183,7 +183,7 @@
 
     @keyframes cloudFadeIn {
       from { opacity: 0; }
-      to   { opacity: 0.8; }
+      to   { opacity: 1; }
     }
 
     @keyframes cloudDrift {
